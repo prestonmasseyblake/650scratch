@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+       
+        <script>
+
+            function range(start, end) {
+            return Array(end - start + 1). fill(). map((_, idx) => start + idx)
+            }
+
+            function coinChange(arr,amount) {
+            var startTime = performance.now()
+            let dp = new Array(amount + 1).fill(0); 
+            dp[0] = 1;
+            for(let i = 1; i <= amount; i++){
+                for(let j = 0; j < arr.length; j++){
+                    if(i >= arr[j]){ 
+                        // console.log(dp[i], " = ", dp[i] , dp[i - arr[j]])
+                        dp[i] = dp[i] + dp[i - arr[j]];
+                    }
+                }
+            
+
+            }
+            // console.log(dp[dp.length -1])
+            var endTime = performance.now()
+            // console.log(`Call to doSomething took ${endTime - startTime} milliseconds`)
+            // console.log(dp)
+            return endTime - startTime
+            }
+            let time_results = []
+            let val = [10,100,500,1000,5000,10000, 50000]
+            let amounts = [10,100,500,1000,5000,10000, 50000]
+            for (let i = 0; i < val.length; i++){
+                let arr = range(1, val[i]) 
+                let time = coinChange(val[i],amounts[i])
+                time_results.push(time)
+            }
+            console.log(time_results)
+            // let arr = range(1, 1000) 
+            // // let arr =[1,2,3,5,7,9,10,42,64,23,68,97]
+            // let amount = 1000
+            // coinChange(arr,amount)
+        </script>
+    </body>
+</html>
